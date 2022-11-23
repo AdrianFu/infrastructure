@@ -13,3 +13,12 @@ export ARM_CLIENT_ID="<service_principal_appid>"
 export ARM_CLIENT_SECRET="<service_principal_password>"
 ```
 
+# To config kubectl access
+```
+az aks get-credentials --resource-group $(./terraform output -raw resource_group_name) --name $(./terraform output -raw kubernetes_cluster_name)
+```
+
+# To Access Kubernetes Dashboard
+```
+az aks browse --resource-group $(./terraform output -raw resource_group_name) --name $(./terraform output -raw kubernetes_cluster_name)
+```
