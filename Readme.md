@@ -9,21 +9,7 @@
 ```
 export ARM_SUBSCRIPTION_ID="<azure_subscription_id>"
 export ARM_TENANT_ID="<azure_subscription_tenant_id>"
-export ARM_CLIENT_ID="<service_principal_appid>"
-export ARM_CLIENT_SECRET="<service_principal_password>"
+export TF_VAR_sp_client_id="<service_principal_appid>"
+export TF_VAR_sp_password="<service_principal_password>"
 ```
 
-# To config kubectl access
-```
-az aks get-credentials --resource-group $(./terraform output -raw resource_group_name) --name $(./terraform output -raw kubernetes_cluster_name)
-```
-
-# To Access Kubernetes Dashboard
-```
-az aks browse --resource-group $(./terraform output -raw resource_group_name) --name $(./terraform output -raw kubernetes_cluster_name)
-```
-
-# To destroy AKS cluster when done
-```
-terraform destroy
-```

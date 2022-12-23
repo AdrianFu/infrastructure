@@ -14,11 +14,3 @@ provider "azurerm" {
 }
 
 # Your code goes here
-
-data "terraform_remote_state" "storage" {
-  backend = "local"
-
-  config = {
-    path = "../provision_storage/terraform.tfstate"
-  }
-}

@@ -20,14 +20,25 @@ resource "azurerm_kubernetes_cluster" "default" {
     os_disk_size_gb = 30
   }
 
-  service_principal {
-    client_id     = var.sp_client_id
-    client_secret = var.sp_password
+  identity {
+    type = "SystemAssigned"
   }
 
-  role_based_access_control_enabled = true
+  #service_principal {
+  #  client_id     = var.sp_client_id
+  #  client_secret = var.sp_password
+  #}
+
+  #role_based_access_control_enabled = true
 
   tags = {
     environment = "lerning-excercise"
   }
+}
+
+resource "azurerm_role_assignment" "default" {
+  principal_id                     = azurerm_kubernetes_cluster.default.kubelet_identity[0].object_id
+  role_definition_name             = "AcrPull"
+  scope                            = data.terraform_remote_state.storage.outputs.container_registry_id
+  skip_service_principal_aad_check = true
 }
